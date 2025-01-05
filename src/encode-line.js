@@ -1,5 +1,5 @@
 const { NotImplementedError } = require('../extensions/index.js');
-const { c } = require("sinon/lib/sinon/spy-formatters");
+const { c } = require("sinon/lib/sinon/spy-formatters.js");
 
 /**
  * Given a string, return its encoding version.
@@ -16,14 +16,16 @@ function encodeLine(str) {
   let result = '';
   for (let i = 0; i < str.length; i++) {
     if(str[i] === str[i+1]){
+      if(counter === 0){
+        counter += 1
+      }
       counter += 1;
-    } else if(str[i] !== str[i-1]) {
-      counter = 0;
-    } else {
+    }  else {
       result += counter+str[i];
+      counter = 0
     }
   }
-  return result.replace(/1/g, '')
+  return result.replace(/1|0/g, '')
 }
 
 module.exports = {
