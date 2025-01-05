@@ -23,9 +23,93 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function minesweeper(matrix ) {
+  let bombCoord = [];
+  let fieldArr = matrix
+  matrix.map((row, rowIndex) => {
+    row.map((cell, cellIndex) => {
+      if(cell === true){
+        bombCoord.push([rowIndex,cellIndex])
+      }
+    })
+  })
+  bombCoord.forEach(function (item,index, array){
+    debugger
+    if(fieldArr?.[item[0]-1]?.[item[1]-1] !== undefined){//topLeftNeighbour
+      if(fieldArr[item[0]-1][item[1]-1] !== true) {
+        fieldArr[item[0]-1][item[1]-1]++;
+      } else                 if(fieldArr[item[0]-1][item[1]-1] === true) {
+        fieldArr[item[0]-1][item[1]-1] = 1;
+      }
+    };
+
+    if(fieldArr?.[item[0]-1]?.[item[1]]!== undefined){//topNeighbour
+      if(fieldArr[item[0]-1][item[1]] !== true) {
+        fieldArr[item[0]-1][item[1]]++;
+      } else                 if(fieldArr[item[0]-1][item[1]] === true) {
+        fieldArr[item[0]-1][item[1]] = 1;
+      }
+    };
+
+    if(fieldArr?.[item[0]-1]?.[item[1]+1] !== undefined){//topRightNeighbour
+      if(fieldArr[item[0]-1][item[1]+1] !== true){
+        fieldArr[item[0]-1][item[1]+1]++;
+      } else                 if(fieldArr[item[0]-1][item[1]+1] === true){
+        fieldArr[item[0]-1][item[1]+1] = 1;
+      }
+    };
+
+    if(fieldArr?.[item[0]]?.[item[1]-1] !== undefined){//leftNeighbour
+      if(fieldArr[item[0]][item[1]-1] !== true) {
+        fieldArr[item[0]][item[1] - 1]++;
+      }else                 if(fieldArr[item[0]][item[1]-1] === true) {
+        fieldArr[item[0]][item[1] - 1] = 1;
+      }
+    };
+
+    if(fieldArr?.[item[0]]?.[item[1]+1] !== undefined){//RightNeighbour
+      if(fieldArr[item[0]][item[1]+1] !== true){
+        fieldArr[item[0]][item[1]+1]++;
+      } else                 if(fieldArr[item[0]][item[1]+1] === true){
+        fieldArr[item[0]][item[1]+1] = 1;
+      }
+    };
+
+    if(fieldArr?.[item[0]+1]?.[item[1]-1] !== undefined){//bottomLeftNeighbour
+      if(fieldArr[item[0]+1][item[1]-1] !== true) {
+        fieldArr[item[0]+1][item[1] - 1]++;
+      } else if(fieldArr[item[0]+1][item[1]-1] === true) {
+        fieldArr[item[0]+1][item[1] - 1] = 1;
+      }
+    };
+
+    if(fieldArr?.[item[0]+1]?.[item[1]] !== undefined){//bottomNeighbour
+      if(fieldArr[item[0]+1][item[1]] !== true) {
+        fieldArr[item[0]+1][item[1]]++;
+      } else if(fieldArr[item[0]+1][item[1]] === true) {
+        fieldArr[item[0]+1][item[1]] = 1;
+      }
+    };
+
+    if(fieldArr?.[item[0]+1]?.[item[1]+1] !== undefined){//bottomRightNeighbour
+      if(fieldArr[item[0]+1][item[1]+1] !== true) {
+        fieldArr[item[0]+1][item[1]+1]++;
+      } else if (fieldArr[item[0]+1][item[1]+1] === true) {
+        fieldArr[item[0]+1][item[1]+1] = 1
+      }
+    };
+
+  })
+  fieldArr = fieldArr.map((row, rowIndex) => {
+    return row.map((cell, cellIndex) => {
+      if(cell === false){
+        return 0
+      } else {
+        return cell
+      }
+    })
+  })
+  return fieldArr
 }
 
 module.exports = {
